@@ -4,6 +4,7 @@ local set = vim.opt
 set.number = true
 set.relativenumber = true
 set.clipboard = "unnamedplus"
+vim.g.mapleader = " "
 
 -- 复制高亮
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -53,8 +54,31 @@ require("lazy").setup({
           -- 设置颜色主题
           vim.cmd([[colorscheme gruvbox]])
       end
-    },	
-
+    },
+    -- 安装 Telescope 插件
+  {
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.8',
+    cmd = "Telescope",
+    keys = {
+      {"<leader>p", ":Telescope find_files<CR>", desc = "Find files"},
+      {"<leader>P", ":Telescope live_grep<CR>", desc = "Grep files"},
+      {"<leader>rs", ":Telescope resume<CR>", desc = "Resume"},
+      {"<leader>q", ":Telescope oldfiles<CR>", desc = "Oldfiles"},
+    },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+	local telescope = require("telescope")
+-- 配置 Telescope
+      telescope.setup({
+        pickers = {
+          find_files = {
+	     find_command = { "fdfind", "--type", "f", "--hidden", "--exclude", ".git" }
+          },
+        },
+      })
+    end,
+  },
 })
 
 vim.cmd.colorscheme('gruvbox')  -- 设置 gruvbox 颜色主题
