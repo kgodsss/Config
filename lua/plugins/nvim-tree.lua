@@ -6,6 +6,7 @@ return {
     -- https://github.com/nvim-tree/nvim-web-devicons
     'nvim-tree/nvim-web-devicons', -- Fancy icon support
   },
+  update_cwd = true, -- 自动更新当前工作目录
   opts = {
     actions = {
       open_file = {
@@ -16,7 +17,7 @@ return {
     },
     update_focused_file = {
       enable = true, -- 启用自动聚焦功能
-      update_cwd = false, -- 是否更新当前工作目录
+      update_cwd = true, -- 是否更新当前工作目录
       ignore_list = {}, -- 忽略列表，不更新这些文件的聚焦
     },
   },

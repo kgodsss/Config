@@ -9,7 +9,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-
+-- 在打开文件时，自动切换到文件所在的目录
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*',
+  callback = function()
+    local file_dir = vim.fn.expand '%:p:h' -- 获取当前文件的目录
+    vim.cmd('cd ' .. file_dir) -- 切换到该目录
+  end,
+})
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
